@@ -11,3 +11,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.accounts-area {
+  background-color: tan;
+  height: 50px;
+}
+
+.content {
+  min-height: 500px;
+  padding: 20px;
+}
+
+.footer {
+  background-color: tan;
+  height: 50px;
+}
+
+.budget-item {
+  background-color: yellow;
+  border: black;
+}
+
+[class~='ant-col'] {
+  background: transparent;
+  border: 0;
+}
+[class~='ant-col'] > div {
+  height: 120px;
+  font-size: 14px;
+  line-height: 120px;
+  background: #0092ff;
+  border-radius: 4px;
+}
+
+.ant-col {
+  padding: 0;
+}
+[data-theme="dark"] [class~='ant-col'] > div {
+  background: #028ac8;
+}
