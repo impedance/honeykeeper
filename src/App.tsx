@@ -1,35 +1,33 @@
 import { Col, Layout, Row } from 'antd';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
-import { useState } from 'react';
 import "antd/dist/antd.css";
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 
 const App: React.FC = () => {
 
-  const cols = [];
-  const colCount = 4;
+  const [items, setItems] = useState<JSX.Element[]>([]);
 
-  for (let i = 0; i < colCount; i++) {
-    cols.push(
-      <Col key={i.toString()} span={24 / colCount}>
-        <div>Column</div>
+  const addItem = () => {
+    const newItem =
+      <Col span={6}>
+        <div>Item</div>
       </Col>
-    );
+    setItems([...items, newItem])
   }
+
   return (
     <Layout>
       <Row>
-        <Header className='accounts-area'>Header</Header>
+        <Col>
+          <Header className='accounts-area' onClick={addItem}>Header</Header>
+        </Col>
       </Row>
       <Content className='content'>
-        <Row gutter={[16, 16]}>
-          {cols}
-          {cols}
+        <Row gutter={[32, 32]}>
+          {items}
         </Row>
-        Another Row:
-        <Row gutter={[16, 16]}>{cols}</Row>
       </Content>
       <Row>
         <Col>
