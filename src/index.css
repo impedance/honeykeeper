@@ -13,7 +13,7 @@ code {
 }
 
 .accounts-area {
-  background-color: tan;
+  color: yellow;
   height: 50px;
 }
 
@@ -28,25 +28,17 @@ code {
 }
 
 .budget-item {
-  background-color: yellow;
+  background-color: tan;
   border: black;
-}
-
-[class~='ant-col'] {
-  background: transparent;
-  border: 0;
-}
-[class~='ant-col'] > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;;
   height: 130px;
   font-size: 14px;
-  line-height: 120px;
-  background: #0092ff;
   border-radius: 4px;
 }
 
-.ant-col {
-  padding: 0;
-}
-[data-theme="dark"] [class~='ant-col'] > div {
-  background: #028ac8;
+.ant-layout-header {
+  background-color: green;
 }
