@@ -8,10 +8,10 @@ import uniqid from 'uniqid';
 interface IBudgetItem {
   budgetId: number
   amount?: number
-  updateBudget: (id: string, budgetedAmount: number) => void
+  updateBudget: (id: number, budgetedAmount: number) => void
 }
 
-const BudgetItem: FC<IBudgetItem> = ({ budgetId, amount }) => {
+const BudgetItem: FC<IBudgetItem> = ({ budgetId, amount, updateBudget }) => {
   const [name, setName] = useState<string>("Default name");
   // const [amount, setAmount] = useState<number>(10);
   const [isChanging, setIsChanging] = useState<boolean>(false);
@@ -22,6 +22,7 @@ const BudgetItem: FC<IBudgetItem> = ({ budgetId, amount }) => {
 
   const handleChange = (event: { target: { value: any } }) => {
     const { value } = event.target;
+    updateBudget(budgetId, 100)
     // setAmount(value);
   };
   return (
@@ -38,29 +39,22 @@ const BudgetItem: FC<IBudgetItem> = ({ budgetId, amount }) => {
   );
 };
 
-const budgetsAmounts = {
-  abc: {
-    amount: 100
-  }
-}
-
-const getAmount = (id: string) => {
-  return budgetsAmounts['abc'].amount;
-}
 
 const App: React.FC = () => {
   const [items, setItems] = useState<JSX.Element[]>([]);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [budgetAmounts, setBudgetAmounts] = useState<{}>({});
+  const [budgetAmounts, setBudgetAmounts] = useState<{ [key: number]: { amount: number } }>({});
 
-  const budgetId = items.length + 1;
-  const changeAmount = (id: string, budgetedAmount: number) => {
-    const newTotal = totalAmount - budgetedAmount;
+  const budgetId = (items.length + 1) - 1;
+  const changeAmount = (id: number, newAmount: number) => {
+    console.log(id, newAmount)
+    const newTotal = totalAmount - newAmount;
     setTotalAmount(newTotal);
-    setBudgetAmounts({ ...budgetAmounts, [id]: { amount: budgetedAmount } })
+    setBudgetAmounts({ ...budgetAmounts, [id]: { amount: newAmount } })
   }
   const addItem = () => {
-    const amount = budgetsAmounts['abc'].amount;
+    setBudgetAmounts({ ...budgetAmounts, [budgetId]: { amount: 100 } })
+    const { amount } = budgetAmounts[budgetId] || 0;
     setItems([...items, <BudgetItem key={budgetId} budgetId={budgetId} updateBudget={changeAmount} amount={amount} />])
   };
 
