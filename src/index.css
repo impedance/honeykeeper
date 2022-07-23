@@ -15,6 +15,12 @@ code {
 .accounts-area {
   color: yellow;
   height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.total-amount {
+  font-size: 25px;
 }
 
 .content {
