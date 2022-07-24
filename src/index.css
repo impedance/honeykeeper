@@ -43,6 +43,7 @@ code {
   height: 130px;
   font-size: 14px;
   border-radius: 4px;
+  padding: 10px;
 }
 
 .ant-layout-header {

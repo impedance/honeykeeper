@@ -15,18 +15,11 @@ const App: FC = () => {
   const [budgets, setBudgets] = useState<{ [key: string]: BudgetItem }>({});
   const [counter, setCounter] = useState<number>(0);
 
-  const changeBudgetAmount = (id: string, newAmount: number) => {
+  const changeBudgetAmount = (id: string, sum: number) => {
     const { amount } = budgets[id];
-    const newBudget = { ...budgets[id], amount: amount + newAmount };
-    setTotalAmount(totalAmount - newAmount);
+    const newBudget = { ...budgets[id], amount: amount + sum };
+    setTotalAmount(totalAmount - sum);
     setBudgets({ ...budgets, [id]: newBudget });
-  };
-
-  // const budgetId = items.length + 1 - 1;
-  const changeTotalAmount = (id: number, newAmount: number) => {
-    console.log(id, newAmount);
-    const newTotal = totalAmount - newAmount;
-    setTotalAmount(newTotal);
   };
 
   const addBudget = () => {
