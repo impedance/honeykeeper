@@ -14,8 +14,11 @@ code {
 
 .accounts-area {
   color: yellow;
-  height: 50px;
+  background-color: black;
+  height: 190px;
   display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -44,6 +47,9 @@ code {
   font-size: 14px;
   border-radius: 4px;
   padding: 10px;
+}
+.selected-budget {
+  border: red 2px solid;
 }
 
 .ant-layout-header {
