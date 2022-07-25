@@ -3,9 +3,11 @@ import { Button, Col, Form, Input, Row } from "antd";
 
 interface Props {
   budgetId: string;
-  amount?: number;
+  amount: number;
   title?: string;
+  selected: boolean;
   changeAmount: (id: string, budgetedAmount: number) => void;
+  deselect: (id: string) => void;
 }
 enum Operation {
   GET,
@@ -17,6 +19,8 @@ export const BudgetCard: FC<Props> = ({
   title,
   budgetId,
   changeAmount,
+  selected,
+  deselect
 }) => {
   const [isChanging, setIsChanging] = useState<boolean>(false);
   const [currentAmount, setCurrentAmount] = useState<number>(amount || 0);
@@ -43,8 +47,8 @@ export const BudgetCard: FC<Props> = ({
     changeAmount(budgetId, -sumToReturn);
   };
   return (
-    <Col span={8}>
-      <div className="budget-item">
+    <Col span={8} onClick={() => deselect(budgetId)}>
+      <div className={`budget-item ${selected ? "selected-budget" : ""}`}>
         <p>
           {title}----{amount}
         </p>

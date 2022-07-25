@@ -9,11 +9,13 @@ const App: FC = () => {
   type BudgetItem = {
     title: string;
     amount: number;
+    selected: boolean;
   };
 
   const [totalAmount, setTotalAmount] = useState<number>(1000);
   const [budgets, setBudgets] = useState<{ [key: string]: BudgetItem }>({});
   const [counter, setCounter] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<string>("");
 
   const changeBudgetAmount = (id: string, sum: number) => {
     const { amount } = budgets[id];
@@ -23,13 +25,36 @@ const App: FC = () => {
   };
 
   const addBudget = () => {
-    const newBudget: BudgetItem = { title: "hello", amount: 0 };
+    const newBudget: BudgetItem = {
+      title: "hello",
+      amount: 0,
+      selected: false,
+    };
     setBudgets({ ...budgets, [counter]: newBudget });
     setCounter(counter + 1);
   };
 
+  const deselect = (budgetId: string) => {
+    const { selected } = budgets[budgetId];
+    const newSelectedBudget = { ...budgets[budgetId], selected: !selected };
+    if (selectedId) {
+      const previousSelectedBudget = {
+        ...budgets[selectedId],
+        selected: false,
+      };
+      setBudgets({
+        ...budgets,
+        [selectedId]: previousSelectedBudget,
+        [budgetId]: newSelectedBudget,
+      });
+    } else {
+      setBudgets({ ...budgets, [budgetId]: newSelectedBudget });
+    }
+    setSelectedId(budgetId);
+  };
+
   const budgetItems = Object.entries(budgets).map(([key, value]) => {
-    const { amount, title } = value;
+    const { amount, title, selected } = value;
     return (
       <BudgetCard
         amount={amount}
@@ -37,6 +62,8 @@ const App: FC = () => {
         budgetId={key}
         title={title}
         changeAmount={changeBudgetAmount}
+        selected={selected}
+        deselect={deselect}
       />
     );
   });
@@ -48,6 +75,7 @@ const App: FC = () => {
           <Header onClick={addBudget}>
             <div className="accounts-area">
               <div className="total-amount">{totalAmount}</div>
+              <div>selected: {selectedId}</div>
             </div>
           </Header>
         </Col>
