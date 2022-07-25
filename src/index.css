@@ -14,8 +14,11 @@ code {
 
 .accounts-area {
   color: yellow;
-  height: 50px;
+  background-color: black;
+  height: 190px;
   display: flex;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
