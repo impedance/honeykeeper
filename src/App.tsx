@@ -57,7 +57,7 @@ const App: FC = () => {
     changeBudgetAmount(selectedId, -sumToReturn);
   };
 
-  const spendSum = () => {
+  const spendFromBudget = () => {
     const { amount } = budgets[selectedId];
     const newBudget = { ...budgets[selectedId], amount: amount - sumToSpend };
     setBudgets({ ...budgets, [selectedId]: newBudget });
@@ -157,7 +157,7 @@ const App: FC = () => {
           <div className="spending-area">
             <Row>
               <Col>
-                <Button onClick={spendSum}>Spend</Button>
+                <Button onClick={spendFromBudget}>Spend</Button>
               </Col>
               <Col span={6}>
                 <Input
