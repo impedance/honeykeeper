@@ -21,6 +21,15 @@ code {
   flex-direction: column;
   justify-content: center;
 }
+.spending-area {
+  color: yellow;
+  background-color: black;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .total-amount {
   font-size: 25px;
