@@ -12,7 +12,8 @@ const App: FC = () => {
     selected: boolean;
   };
 
-  const [totalAmount, setTotalAmount] = useState<number>(1000);
+  const [sberAccount, setSberAccount] = useState<number>(10000);
+  const [totalAmount, setTotalAmount] = useState<number>(sberAccount);
   const [budgets, setBudgets] = useState<{ [key: string]: BudgetItem }>({});
   const [counter, setCounter] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<string>("");
@@ -61,6 +62,7 @@ const App: FC = () => {
     const { amount } = budgets[selectedId];
     const newBudget = { ...budgets[selectedId], amount: amount - sumToSpend };
     setBudgets({ ...budgets, [selectedId]: newBudget });
+    setSberAccount(sberAccount - sumToSpend)
   };
 
   const addBudget = () => {
@@ -111,7 +113,7 @@ const App: FC = () => {
       <Row>
         <Col span={24}>
           <div className="accounts-area">
-            <div className="total-amount">{totalAmount}</div>
+            <div className="total-amount">{totalAmount}*****{sberAccount}</div>
             <Button onClick={addBudget}>add new card</Button>
             <div>selected: {selectedId}</div>
             {selectedId && (
