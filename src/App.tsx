@@ -12,17 +12,21 @@ const App: FC = () => {
     selected: boolean;
   };
 
-  const [totalAmount, setTotalAmount] = useState<number>(1000);
+  const [sberAccount, setSberAccount] = useState<number>(10000);
+  const [totalAmount, setTotalAmount] = useState<number>(sberAccount);
   const [budgets, setBudgets] = useState<{ [key: string]: BudgetItem }>({});
   const [counter, setCounter] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<string>("");
   const [sumToGet, setSumToGet] = useState<number>(0);
   const [sumToReturn, setSumToReturn] = useState<number>(0);
+  const [sumToSpend, setSumToSpend] = useState<number>(0);
 
   enum Operation {
     GET,
     RETURN,
+    SPEND,
   }
+
   const handleChange = (
     event: { target: { value: any } },
     operation: Operation
@@ -34,6 +38,9 @@ const App: FC = () => {
     } else {
       setSumToReturn(sum);
     }
+    if (operation === Operation.SPEND) {
+      setSumToSpend(sum);
+    }
   };
 
   const changeBudgetAmount = (id: string, sum: number) => {
@@ -42,11 +49,20 @@ const App: FC = () => {
     setTotalAmount(totalAmount - sum);
     setBudgets({ ...budgets, [id]: newBudget });
   };
+
   const getSum = () => {
     changeBudgetAmount(selectedId, sumToGet);
   };
+
   const returnSum = () => {
     changeBudgetAmount(selectedId, -sumToReturn);
+  };
+
+  const spendFromBudget = () => {
+    const { amount } = budgets[selectedId];
+    const newBudget = { ...budgets[selectedId], amount: amount - sumToSpend };
+    setBudgets({ ...budgets, [selectedId]: newBudget });
+    setSberAccount(sberAccount - sumToSpend)
   };
 
   const addBudget = () => {
@@ -97,7 +113,7 @@ const App: FC = () => {
       <Row>
         <Col span={24}>
           <div className="accounts-area">
-            <div className="total-amount">{totalAmount}</div>
+            <div className="total-amount">{totalAmount}*****{sberAccount}</div>
             <Button onClick={addBudget}>add new card</Button>
             <div>selected: {selectedId}</div>
             {selectedId && (
@@ -139,8 +155,20 @@ const App: FC = () => {
         <Row gutter={[32, 32]}>{budgetItems}</Row>
       </Content>
       <Row>
-        <Col>
-          <Footer className="footer">Footer</Footer>
+        <Col span={24}>
+          <div className="spending-area">
+            <Row>
+              <Col>
+                <Button onClick={spendFromBudget}>Spend</Button>
+              </Col>
+              <Col span={6}>
+                <Input
+                  value={sumToSpend}
+                  onChange={(event) => handleChange(event, Operation.SPEND)}
+                />
+              </Col>
+            </Row>
+          </div>
         </Col>
       </Row>
     </Layout>
