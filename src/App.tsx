@@ -111,7 +111,7 @@ const App: FC = () => {
   return (
     <Layout>
       <Row>
-        <Col span={24}>
+        <Col span={12}>
           <div className="accounts-area">
             <div className="total-amount">
               {totalAmount}*****{sberAccount}
@@ -129,6 +129,9 @@ const App: FC = () => {
               />
             )}
           </div>
+        </Col>
+        <Col>
+          <div>AccountsCard</div>
         </Col>
       </Row>
       <Content className="content">
